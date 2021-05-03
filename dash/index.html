@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta content='sat, 02 jun 2020 00:00:00 GMT' http-equiv='expires' />
+  <meta charset='utf-8' />
+  <meta content='width=device-width, initial-scale=1' name='viewport' />
+    <title>Dashboard | BChat</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Talk through bots">
+    <meta name="author" content="Lockyz">
+
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/discord.11.6.3.js"></script>
+    <script type="text/javascript" src="../js/main.js"></script>
+</head>
+
+<body>
+    <table class="content">
+        <th class="top">
+            <div>
+                <div>
+                    <p id='guildName' class="border header"><img src="../img/36773.png"
+                        class="fasIMG invert"> Guild</p>
+                    <p id='botName' class="border header"><img src="../img/36773.png"
+                        class="fasIMG invert"> Bot</p>
+                        <div>
+                            <h5>Auto-Scroll was removed due to issue in the code... It will return in the future however</h5>
+                            <!-- TOO FIX
+                                <fieldset>
+                                <legend>Auto-Scroll</legend>
+                                <label class="switch">
+                                    <input id="chk1" type="checkbox" value="last">
+                                    <span class="slider round"></span>
+                                </label>
+                                <label id='channelNameLabel' for="chatCheck">Chat (Auto-Scroll)</label><br /><br />
+                                <label class="switch">
+                                    <input id="chk3" type="checkbox" value="animCheck" checked>
+                                    <span class="slider round"></span>
+                                </label>
+                                <label for="animCheck">Enable auto-scrolling animation</label><br /><br />
+                            </fieldset>
+                        -->
+                            <fieldset>
+                                <legend>Discord Presence</legend>
+                                <form>
+                                          <label>Online Status</label>
+                                          <select id = "chk4">
+                                            <option value = "invisible">Offline</option>
+                                            <option value = "online">Online</option>
+                                            <option value = "dnd">DND</option>
+                                            <option value = "idle">Idle</option>
+                                          </select>
+                                 </form>
+                                <textarea class='activaterpc' id="toactivaterpc"></textarea><br>
+                                <button id="activaterpc" class="blue"><i class="fas fa-share-square"></i> Activate</button>
+                            </fieldset>
+                            <button id='refreshToken' class="red"><i class="fas fa-key"></i> Refresh Token</button>
+                            <button id='refreshChannels' class="blue"><i class="fas fa-key"></i> Refresh Channels</button>
+                            <button id="myBtn" class="blue">Changelog</button>
+                            <button id="myBtn1" class="blue">Dashboard Information</button>
+                            <button id="myBtn2" class="blue">Legal Information</button>
+                        </div>
+                </div>
+        </th>
+        <th class="top big">
+            <div>
+                <p id='channelName' class="border header"><img src='../img/332789-200.png'
+                    class="fasIMG invert"> Chat</p>
+                <div id="chat" class="scrollable"></div>
+                <button id="btnrRefreshChat"class="black"><i class="fas fa-sync-alt"></i> Refresh Chat</button>
+                <select id="guilds"></select><br>
+                <select id="channels"></select><br>
+                <textarea class='send' id="toSend"></textarea><br>
+                <button id="send" class="blue"><i class="fas fa-share-square"></i> Send</button>
+                <button id="delLast" class="red"><i class="far fa-calendar-times"></i> Delete Last Message</button>
+
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1>Version: 4.1.0</h1>
+                <h3>ADDED</h3>
+                <p>Legal Information to be GDPR Compliant</p>
+                <h3>CHANGES</h3>
+                <p>Changed the copyright text.<br><br>
+                    Changed the copyright text link<br><br>
+                    Changed some text formatting.<br><br>
+                    We're now using HTTPS instead of HTTP<br><br>
+                    Using a new host.<br><br>
+                    Dashboard now links at /dash in order to have a main page
+                </p>
+                </div>
+                </div>
+                <!-- The Modal -->
+                <div id="myModal1" class="modal1">
+                <!-- Modal content -->
+                <div class="modal-content1">
+                <span class="close1">&times;</span>
+                <h1>Version: 4.0.0</h1>
+                <p><a href="https://discord.gg/eRPsZns">Discord</a><br>
+                <a href="https://github.com/lockyz/BChat">GitHub</a></p>
+                </div>
+                </div>
+
+                <div id="myModal2" class="modal2">
+                    <!-- Modal content -->
+                    <div class="modal-content2">
+                    <span class="close2">&times;</span>
+                    <h1>Legal Information</h1>
+                    <p><br>We do NOT recieve any of the information that you post using this website. It all get's stored in your browsers cache when in use and is deleted when not.</p>
+                    </div>
+                    </div>
+            </div>
+        </th>
+        <div>
+            <h1>BChat Dashboard</h1>
+        </div>
+    </table>
+</body>
+<footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">©️ 2020 <a href="https://lockyzdev.net">L Dev</a>
+            </p>
+        </div>
+      </div>
+    </div>
+    <script>
+        			// Get the modal
+		var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Get the modal
+var modal1 = document.getElementById("myModal1");
+
+// Get the button that opens the modal
+var btn1 = document.getElementById("myBtn1");
+
+// Get the <span> element that closes the modal
+var span1 = document.getElementsByClassName("close1")[0];
+
+// When the user clicks the button, open the modal 
+btn1.onclick = function() {
+    modal1.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span1.onclick = function() {
+    modal1.style.display = "none";
+}
+
+// Get the modal
+var modal2 = document.getElementById("myModal2");
+
+// Get the button that opens the modal
+var btn2 = document.getElementById("myBtn2");
+
+// Get the <span> element that closes the modal
+var span2 = document.getElementsByClassName("close2")[0];
+
+// When the user clicks the button, open the modal 
+btn2.onclick = function() {
+    modal2.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span2.onclick = function() {
+    modal2.style.display = "none";
+}
+
+    </script>
+</footer>
+
+</html>
